@@ -28,6 +28,35 @@
 
 
 
+# SOLUTION 3: Merge Sort (based on both https://medium.com/@limichelle21/read-it-learn-it-build-it-sorting-algorithms-in-ruby-ead04b04baa6 and https://gist.github.com/bih/9726300)
+# => PASSES Leetcode time limit stress test!
+
+# @param {Integer[]} nums
+# @return {Integer[]}
+def sort_array(nums)    # recursive
+  return nums if nums.length <= 1
+  
+  mid = (nums.length / 2).floor
+  left = sort_array(nums[0..mid - 1])
+  right = sort_array(nums[mid..-1])
+  
+  return merge(left, right)
+end
+
+
+def merge(left, right)    # recursive
+  return right if left.empty?
+  return left if right.empty?
+  
+  if left[0] < right[0]
+    return [left[0]] + merge(left[1..-1], right)
+  else
+    return [right[0]] + merge(left, right[1..-1])
+  end
+end
+
+
+
 # SOLUTION 2: Insertion Sort (based on https://medium.com/@limichelle21/read-it-learn-it-build-it-sorting-algorithms-in-ruby-ead04b04baa6)
 # => FAILS Leetcode time limit stress test!
 
@@ -82,13 +111,13 @@ def create_sorted_array(number_hash)
   last_index = 0
   number_hash.each_pair do |key, value|
     num_array = Array.new(value, key)
-    find_insert_index(sorted_array, last_index, num_array)
+    find_insertion_index(sorted_array, last_index, num_array)
   end
   return sorted_array
 end
 
 
-def find_insert_index(sorted_array, last_index, num_array)
+def find_insertion_index(sorted_array, last_index, num_array)
   if sorted_array.length == 0
     sorted_array << num_array 
   
@@ -96,19 +125,21 @@ def find_insert_index(sorted_array, last_index, num_array)
     value = num_array[0]
     if value <= sorted_array[last_index][0] && value > sorted_array[last_index - 1][0]
       sorted_array.insert(last_index, num_array)
+
     elsif value < sorted_array[last_index][0]
       if last_index = 0
         sorted_array.unshift(num_array)
       else
         last_index -= 1
-        find_insert_index(sorted_array, last_index, num_array)
+        find_insertion_index(sorted_array, last_index, num_array)
       end
+      
     elsif value > sorted_array[last_index][0]
       if last_index == sorted_array.length - 1
         sorted_array.push(num_array)
       else
         last_index += 1
-        find_insert_index(sorted_array, last_index, num_array)  
+        find_insertion_index(sorted_array, last_index, num_array)  
       end  
     end
   end
