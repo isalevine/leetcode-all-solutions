@@ -29,6 +29,9 @@
 # Extra note: it appears all test cases have a non-null root
 
 
+
+# SOLUTION 1: Naive Solution
+
 # Definition for a binary tree node.
 # class TreeNode
 #   attr_accessor :val, :left, :right

@@ -34,6 +34,8 @@
 
 
 
+# SOLUTION 1: Naive Solution
+
 class SnapshotArray
 
   # =begin
