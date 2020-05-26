@@ -27,9 +27,34 @@
 
 
 
+
+# SOLUTION 2: The exact same thing as Solution 1, without the unnecessary extra function
+# (from the Leetcode solution)
+
+# Definition for a binary tree node.
+# class TreeNode
+#   attr_accessor :val, :left, :right
+#   def initialize(val = 0, left = nil, right = nil)
+#     @val = val
+#     @left = left
+#     @right = right
+#   end
+# end
+# @param {TreeNode} root
+# @return {TreeNode}
+def invert_tree(root)
+  return root if !root
+  new_left = invert_tree(root.right)
+  new_right = invert_tree(root.left)
+  root.left = new_left
+  root.right = new_right
+  return root
+end
+
+
+
 # SOLUTION 1: Naive Solution
-# Runtime: 32 ms, faster than 78.90% of Ruby online submissions for Invert Binary Tree.
-# Memory Usage: 9.4 MB, less than 100.00% of Ruby online submissions for Invert Binary Tree.
+# (This involves an unnecessary function, but does explicitly lay out how the nodes are manipulated)
 
 # Definition for a binary tree node.
 # class TreeNode
